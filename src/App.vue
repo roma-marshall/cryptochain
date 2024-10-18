@@ -1,22 +1,25 @@
 <template>
   <div>
     <Home />
+<!--    <div v-if="loading">Loading...</div>-->
+<!--    <div v-else-if="error">Error: {{ error.message }}</div>-->
+<!--    <div v-else-if="coinData">-->
+<!--      <p>Ping Data: {{ coinData[0] }}</p>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script setup>
 import Home from './components/Home.vue'
 
+import { ref, onMounted } from 'vue'
+import { usePiniaStore } from './store/pinia.js'  // Подключаем Pinia Store
 
-const fetchData = async () => {
-  const response = await fetch(`https://api.coingecko.com/api/v3/ping`, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'x_cg_demo_api_key': import.meta.env.VITE_API_KEY
-    }
-  })
-  const data = await response.json()
-}
+const piniaStore = usePiniaStore()
+const { fetchCoinsData, coinData, loading, error } = piniaStore
+
+// Выполняем запрос при монтировании компонента
+onMounted(() => {
+  fetchCoinsData()
+})
 </script>
