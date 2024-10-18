@@ -7,6 +7,9 @@ export const usePiniaStore = defineStore('data', {
     globalData: null,  // API data storage
     loading: false,  // to monitor the status of the download
     error: null,     // to track errors
+    hourlyTimestamps: [],
+    firstTimestamp: null,
+    lastTimestamp: null,
   }),
 
   actions: {
@@ -69,8 +72,6 @@ export const usePiniaStore = defineStore('data', {
 
         const data = await response.json()
 
-        await console.log(data)
-
         this.globalData = data   // saving the data to the Pinia store
         return this.globalData
 
@@ -81,5 +82,34 @@ export const usePiniaStore = defineStore('data', {
         this.loading = false
       }
     },
+
+    async generateHourlyTimestamps() {
+      const timestamps = []
+      const now = new Date()
+
+      // set the date to the beginning of the current day (midnight)
+      const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0)
+
+      // function for formatting timestamp in the format dd.mm.YY, HH:MM
+      const formatTimestamp = (timestamp) => {
+        const date = new Date(timestamp * 1000)
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = String(date.getFullYear()).slice(-2)
+        const hours = String(date.getHours()).padStart(2, '0')
+        const minutes = String(date.getMinutes()).padStart(2, '0')
+
+        return `${day}.${month}.${year}, ${hours}:${minutes}`
+      }
+
+      // generating timestamps for each hour
+      for (let i = 0; i < 24; i++) {
+        const timestamp = Math.floor(new Date(startOfDay.getTime() + i * 60 * 60 * 1000).getTime() / 1000)
+        timestamps.push(formatTimestamp(timestamp))
+      }
+
+      this.hourlyTimestamps = timestamps   // saving the data to the Pinia store
+      return this.hourlyTimestamps
+    }
   },
 })

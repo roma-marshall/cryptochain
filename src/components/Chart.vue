@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div class="2xl:max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between">
       <div>
         <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">BTC.D</h5>
@@ -17,21 +17,17 @@
 </template>
 
 <script setup>
-import {computed, onMounted, ref} from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import VueApexCharts from 'vue3-apexcharts'
-
 import { usePiniaStore } from '../store/pinia.js'
 
-// {{ globalData?.data.market_cap_percentage.btc.toFixed(2) }} %
+const Apexchart = VueApexCharts
 const store = usePiniaStore()
 const globalData = computed(() => store.globalData)
 
-onMounted(() => {
-  store.fetchGlobalData()
-})
+const hourlyTimestamps = computed(() => store.hourlyTimestamps)
 
-
-const Apexchart = VueApexCharts
+console.log(hourlyTimestamps)
 
 const chartOptions = ref({
   chart: {
@@ -78,13 +74,13 @@ const chartOptions = ref({
   },
   series: [
     {
-      name: "New users",
+      name: "BTC.D",
       data: [6500, 6418, 6456, 6526, 6356, 6456],
       color: "#1A56DB",
     },
   ],
   xaxis: {
-    categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+    categories: hourlyTimestamps,
     labels: {
       show: false,
     },
@@ -98,5 +94,10 @@ const chartOptions = ref({
   yaxis: {
     show: false,
   },
+})
+
+onMounted(() => {
+  store.fetchGlobalData()
+  store.generateHourlyTimestamps()
 })
 </script>
