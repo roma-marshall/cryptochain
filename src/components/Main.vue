@@ -3,7 +3,9 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
       <div
           class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
-      ></div>
+      >
+        {{ globalData.data.market_cap_percentage.btc.toFixed(2) }} %
+      </div>
       <div
           class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
       ></div>
@@ -17,13 +19,6 @@
     <div
         class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 min-h-96 mb-4"
     >
-<!--      <div v-for="item in coinData">-->
-<!--        {{ item.symbol }}-->
-<!--      </div>-->
-
-
-
-
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 whitespace-nowrap">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -140,10 +135,12 @@ const store = usePiniaStore()
 
 // reactive access to data using computed
 const coinData = computed(() => store.coinData)
+const globalData = computed(() => store.globalData)
 
 // execute a query when mounting a component
 onMounted(() => {
   store.fetchCoinsData()
+  store.fetchGlobalData()
 })
 
 const formatPrice = (value, toFixed) => {

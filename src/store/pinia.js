@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 export const usePiniaStore = defineStore('data', {
   state: () => ({
     coinData: null,  // API data storage
+    globalData: null,  // API data storage
     loading: false,  // to monitor the status of the download
     error: null,     // to track errors
   }),
@@ -35,6 +36,43 @@ export const usePiniaStore = defineStore('data', {
 
         this.coinData = data   // saving the data to the Pinia store
         return this.coinData
+
+      } catch (error) {
+        this.error = error
+        throw error  // throw an error for processing at the component level
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchGlobalData() {
+      // check if the data already exists in the storage, then return it
+      if (this.globalData) {
+        return this.globalData
+      }
+
+      this.loading = true
+      this.error = null
+
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/global', {
+          headers: {
+            'x_cg_demo_api_key': import.meta.env.VITE_API_KEY,
+          },
+        })
+
+
+        // check if the request is successful
+        if (!response.ok) {
+          throw new Error('Failed to fetch data')
+        }
+
+        const data = await response.json()
+
+        await console.log(data)
+
+        this.globalData = data   // saving the data to the Pinia store
+        return this.globalData
 
       } catch (error) {
         this.error = error
