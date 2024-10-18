@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watchEffect } from 'vue'
 import VueApexCharts from 'vue3-apexcharts'
 import { usePiniaStore } from '../store/pinia.js'
 
@@ -117,6 +117,17 @@ const formatPrice = value => {
   let val = (value/1).toFixed(0).replace(',', '.')
   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
+
+// watch the data changes and update the series for the graph
+watchEffect(() => {
+  chartOptions.value.series = [
+    Number(btc.value),
+    Number(eth.value),
+    Number(bnb.value),
+    Number(sol.value),
+    Number(usdt.value)
+  ]
+})
 
 onMounted(() => {
   store.fetchGlobalData()
