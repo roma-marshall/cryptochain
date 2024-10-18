@@ -53,7 +53,7 @@ const chartOptions = ref({
             offsetY: 20,
           },
           total: {
-            showAlways: true,
+            showAlways: false,
             show: true,
             label: "Dominance",
             fontFamily: "Inter, sans-serif",

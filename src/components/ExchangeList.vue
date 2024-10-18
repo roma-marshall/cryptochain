@@ -57,10 +57,6 @@ const formatPrice = (value, toFixed) => {
   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
-const progress = (a, b) => {
-  return b / a * 100
-}
-
 // execute a query when mounting a component
 onMounted(() => {
   store.fetchExchangeData()

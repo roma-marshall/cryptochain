@@ -6,7 +6,7 @@
         <th scope="col" class="px-6 py-3">
           #
         </th>
-        <th scope="col" class="px-6 py-3 sticky md:static left-0 bg-gray-50">
+        <th scope="col" class="px-6 py-3 sticky md:static left-0 bg-gray-50 dark:bg-gray-700">
           Name
         </th>
         <th scope="col" class="px-6 py-3">
@@ -31,10 +31,10 @@
       </thead>
       <tbody class="text-black dark:text-gray-400">
       <tr v-for="item in coinData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-white md:bg-transparent">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white bg-white dark:bg-gray-800 md:bg-transparent">
           {{ item.market_cap_rank }}
         </th>
-        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sticky md:static left-0 bg-white md:bg-transparent">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sticky md:static left-0 bg-white dark:bg-gray-800 md:bg-transparent">
           <div class="flex space-x-2 whitespace-normal">
             <img class="w-8 h-8 my-auto rounded-full" :src="item.image" :alt="item.name">
             <div>
