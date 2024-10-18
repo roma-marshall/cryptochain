@@ -25,9 +25,8 @@ const Apexchart = VueApexCharts
 const store = usePiniaStore()
 const globalData = computed(() => store.globalData)
 
-const hourlyTimestamps = computed(() => store.hourlyTimestamps)
-
-console.log(hourlyTimestamps)
+// const hourlyTimestamps = computed(() => store.hourlyTimestamps)
+// const btcD = computed(() => store.btcD)
 
 const chartOptions = ref({
   chart: {
@@ -75,12 +74,12 @@ const chartOptions = ref({
   series: [
     {
       name: "BTC.D",
-      data: [6500, 6418, 6456, 6526, 6356, 6456],
+      data: [1,2,3,5,6],
       color: "#1A56DB",
     },
   ],
   xaxis: {
-    categories: hourlyTimestamps,
+    categories: [1,2,3,4,5,6],
     labels: {
       show: false,
     },
@@ -98,6 +97,7 @@ const chartOptions = ref({
 
 onMounted(() => {
   store.fetchGlobalData()
-  store.generateHourlyTimestamps()
+  // store.fetchBTCD()
+  // store.generateHourlyTimestamps()
 })
 </script>
