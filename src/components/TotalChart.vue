@@ -2,8 +2,8 @@
   <div class="2xl:max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
     <div class="flex justify-between">
       <div>
-        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">BTC.D</h5>
-        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Bitcoin Dominance</p>
+        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">TOTAL</h5>
+        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Crypto Market Capitalization</p>
       </div>
       <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
         ${{ formatPrice(totalMC) }}
@@ -56,13 +56,13 @@ const chartOptions = ref({
           total: {
             showAlways: true,
             show: true,
-            label: "Unique visitors",
+            label: "Dominance",
             fontFamily: "Inter, sans-serif",
             formatter: function (w) {
               const sum = w.globals.seriesTotals.reduce((a, b) => {
                 return a + b;
               }, 0);
-              return 'test'
+              return 'TOTAL'
             },
           },
           value: {
@@ -113,8 +113,8 @@ const chartOptions = ref({
   },
 });
 
-const formatPrice = (value, toFixed) => {
-  let val = (value/1).toFixed(toFixed).replace(',', '.')
+const formatPrice = value => {
+  let val = (value/1).toFixed(0).replace(',', '.')
   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
