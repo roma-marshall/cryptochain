@@ -8,7 +8,9 @@
       </div>
       <div
           class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 min-h-32 md:min-h-64"
-      ></div>
+      >
+        <NFTList />
+      </div>
       <div
           class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 min-h-32 md:min-h-64"
       ></div>
@@ -69,4 +71,5 @@
 <script setup>
 import TotalChart from './TotalChart.vue'
 import CoinList from './CoinList.vue'
+import NFTList from './NFTList.vue'
 </script>
