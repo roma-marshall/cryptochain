@@ -1,5 +1,6 @@
 // src/stores/pingStore.js
 import { defineStore } from 'pinia'
+import secret from './secret.js'
 
 export const usePiniaStore = defineStore('data', {
   state: () => ({
@@ -22,7 +23,7 @@ export const usePiniaStore = defineStore('data', {
       try {
         const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd', {
           headers: {
-            'x_cg_demo_api_key': import.meta.env.VITE_API_KEY,
+            'x_cg_demo_api_key': secret.apiKey,
           },
         })
 
@@ -57,7 +58,7 @@ export const usePiniaStore = defineStore('data', {
       try {
         const response = await fetch('https://api.coingecko.com/api/v3/global', {
           headers: {
-            'x_cg_demo_api_key': import.meta.env.VITE_API_KEY,
+            'x_cg_demo_api_key': secret.apiKey,
           },
         })
 
