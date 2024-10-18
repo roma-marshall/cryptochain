@@ -12,6 +12,14 @@
 <script setup>
 import Home from './components/Home.vue'
 
+import { onMounted } from 'vue'
+import { initFlowbite } from 'flowbite'
+
+// initialize components based on data attribute selectors
+onMounted(() => {
+  initFlowbite()
+})
+
 // import { ref, computed, onMounted } from 'vue'
 // import { usePiniaStore } from './store/pinia.js'  // connecting Pinia Store
 //
