@@ -54,7 +54,7 @@
             </th>
           </tr>
           </thead>
-          <tbody class="text-black">
+          <tbody class="text-black dark:text-gray-400">
           <tr v-for="item in coinData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{ item.market_cap_rank }}
@@ -86,9 +86,12 @@
             <td class="px-6 py-4">
               ${{ formatPrice(item.fully_diluted_valuation, 0) }}
             </td>
-            <td class="px-6 py-4">
+            <td class="px-6 py-4" :class="{ 'align-bottom' : progress(item.total_supply, item.circulating_supply) !== 100 }">
               {{ formatPrice(item.circulating_supply, 0) }}
               <span class="uppercase">{{ item.symbol }}</span>
+              <div v-if="progress(item.total_supply, item.circulating_supply) !== 100" class="w-full bg-[#eff2f5] rounded-full h-1.5 mt-1 dark:bg-[#222531]">
+                <div class="bg-[#cfd6e4] h-1.5 rounded-full dark:bg-[#374151]" :style="`width: ${progress(item.total_supply, item.circulating_supply)}%;`"></div>
+              </div>
             </td>
           </tr>
           </tbody>
@@ -146,5 +149,9 @@ onMounted(() => {
 const formatPrice = (value, toFixed) => {
   let val = (value/1).toFixed(toFixed).replace(',', '.')
   return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
+const progress = (a, b) => {
+  return b / a * 100
 }
 </script>
