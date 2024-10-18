@@ -68,10 +68,16 @@
             <td class="px-6 py-4">
               ${{ formatPrice(item.current_price, 2) }}
             </td>
-            <td class="px-6 py-4">
+            <td
+                class="px-6 py-4"
+                :class="item.price_change_percentage_24h > 0 ? 'text-[#16c784]': 'text-[#ea3943]'"
+            >
               {{ item.price_change_percentage_24h.toFixed(2) }} %
             </td>
-            <td class="px-6 py-4">
+            <td
+                class="px-6 py-4"
+                :class="item.ath_change_percentage > 0 ? 'text-[#16c784]': 'text-[#ea3943]'"
+            >
               {{ item.ath_change_percentage.toFixed(2) }} %
             </td>
             <td class="px-6 py-4">
