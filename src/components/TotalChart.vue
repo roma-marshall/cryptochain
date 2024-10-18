@@ -11,7 +11,7 @@
         </svg>
       </div>
     </div>
-    <Apexchart type="donut" height="100%" :options="chartOptions" :series="chartOptions.series" />
+    <Apexchart type="donut" height="80%" :options="chartOptions" :series="chartOptions.series" />
   </div>
 </template>
 
