@@ -33,7 +33,7 @@ const totalMC = computed(() => store.globalData?.data.total_market_cap.usd)
 
 const chartOptions = ref({
   series: [Number(btc.value), Number(eth.value), Number(bnb.value), Number(sol.value), Number(usdt.value)],
-  colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694", "#8A4FFF"],
+  colors: ["#F6931A", "#626890", "#F0BB01", "#6E72E5", "#009494"],
   chart: {
     height: 320,
     width: "100%",

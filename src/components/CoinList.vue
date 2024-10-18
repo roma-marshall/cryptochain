@@ -36,7 +36,7 @@
         </th>
         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sticky md:static left-0 bg-white md:bg-transparent">
           <div class="flex space-x-2 whitespace-normal">
-            <img class="w-8 h-8 my-auto" :src="item.image" :alt="item.name">
+            <img class="w-8 h-8 my-auto rounded-full" :src="item.image" :alt="item.name">
             <div>
               <p class="font-semibold">{{ item.name }}</p>
               <p class="text-slate-500 font-normal uppercase">{{ item.symbol }}</p>
@@ -48,13 +48,13 @@
         </td>
         <td
             class="px-6 py-4"
-            :class="item.price_change_percentage_24h > 0 ? 'text-[#16c784]': 'text-[#ea3943]'"
+            :class="item.price_change_percentage_24h > 0 ? 'text-green-500': 'text-red-500'"
         >
           {{ item.price_change_percentage_24h.toFixed(2) }} %
         </td>
         <td
             class="px-6 py-4"
-            :class="item.ath_change_percentage > 0 ? 'text-[#16c784]': 'text-[#ea3943]'"
+            :class="item.ath_change_percentage > 0 ? 'text-green-500': 'text-red-500'"
         >
           {{ item.ath_change_percentage.toFixed(2) }} %
         </td>
