@@ -44,9 +44,6 @@
               ATH %
             </th>
             <th scope="col" class="px-6 py-3">
-              Volume(24h)
-            </th>
-            <th scope="col" class="px-6 py-3">
               Market Cap
             </th>
             <th scope="col" class="px-6 py-3">
@@ -69,7 +66,7 @@
               </div>
             </th>
             <td class="px-6 py-4">
-              ${{ item.current_price }}
+              ${{ formatPrice(item.current_price, 2) }}
             </td>
             <td class="px-6 py-4">
               {{ item.price_change_percentage_24h.toFixed(2) }} %
@@ -78,27 +75,19 @@
               {{ item.ath_change_percentage.toFixed(2) }} %
             </td>
             <td class="px-6 py-4">
-              123
+              ${{ formatPrice(item.market_cap, 0) }}
             </td>
             <td class="px-6 py-4">
-              ${{ item.market_cap }}
+              ${{ formatPrice(item.fully_diluted_valuation, 0) }}
             </td>
             <td class="px-6 py-4">
-              ${{ item.fully_diluted_valuation }}
-            </td>
-            <td class="px-6 py-4">
-              {{ item.circulating_supply }}
+              {{ formatPrice(item.circulating_supply, 0) }}
               <span class="uppercase">{{ item.symbol }}</span>
             </td>
           </tr>
           </tbody>
         </table>
       </div>
-
-
-
-
-
     </div>
     <div class="grid grid-cols-2 gap-4 mb-4">
       <div
@@ -147,4 +136,9 @@ const coinData = computed(() => store.coinData)
 onMounted(() => {
   store.fetchCoinsData()
 })
+
+const formatPrice = (value, toFixed) => {
+  let val = (value/1).toFixed(toFixed).replace(',', '.')
+  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
 </script>
