@@ -12,14 +12,14 @@
 <script setup>
 import Home from './components/Home.vue'
 
-import { ref, onMounted } from 'vue'
-import { usePiniaStore } from './store/pinia.js'  // Подключаем Pinia Store
-
-const piniaStore = usePiniaStore()
-const { fetchCoinsData, coinData, loading, error } = piniaStore
-
-// Выполняем запрос при монтировании компонента
-onMounted(() => {
-  fetchCoinsData()
-})
+// import { ref, onMounted } from 'vue'
+// import { usePiniaStore } from './store/pinia.js'  // connecting Pinia Store
+//
+// const piniaStore = usePiniaStore()
+// const { fetchCoinsData, coinData, loading, error } = piniaStore
+//
+// // execute a query when mounting a component
+// onMounted(() => {
+//   fetchCoinsData()
+// })
 </script>
