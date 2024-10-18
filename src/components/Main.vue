@@ -16,7 +16,11 @@
     </div>
     <div
         class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-    ></div>
+    >
+      <div v-for="item in coinData">
+        {{ item.symbol }}
+      </div>
+    </div>
     <div class="grid grid-cols-2 gap-4 mb-4">
       <div
           class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
@@ -52,5 +56,16 @@
 </template>
 
 <script setup>
+import { ref, computed, onMounted } from 'vue'
+import { usePiniaStore } from '../store/pinia.js'  // connecting Pinia Store
 
+const store = usePiniaStore()
+
+// reactive access to data using computed
+const coinData = computed(() => store.coinData)
+
+// execute a query when mounting a component
+onMounted(() => {
+  store.fetchCoinsData()
+})
 </script>
