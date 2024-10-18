@@ -1,18 +1,17 @@
 <template>
-  <div class="2xl:max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-    <div class="flex justify-between">
-      <div>
-        <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">TOTAL</h5>
-        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Crypto Market Capitalization</p>
+  <div class="w-full h-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="flex justify-between mb-5">
+      <div class="my-auto">
+        <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white">Market Cap</h5>
       </div>
-      <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+      <div class="flex items-center px-2.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
         ${{ formatPrice(totalMC) }}
         <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
         </svg>
       </div>
     </div>
-    <Apexchart type="donut" height="100%" :options="chartOptions" :series="chartOptions.series" />
+    <Apexchart type="donut" height="80%" :options="chartOptions" :series="chartOptions.series" />
   </div>
 </template>
 
@@ -33,7 +32,7 @@ const totalMC = computed(() => store.globalData?.data.total_market_cap.usd)
 
 const chartOptions = ref({
   series: [Number(btc.value), Number(eth.value), Number(bnb.value), Number(sol.value), Number(usdt.value)],
-  colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694", "#8A4FFF"],
+  colors: ["#F6931A", "#626890", "#F0BB01", "#6E72E5", "#009494"],
   chart: {
     height: 320,
     width: "100%",
@@ -54,7 +53,7 @@ const chartOptions = ref({
             offsetY: 20,
           },
           total: {
-            showAlways: true,
+            showAlways: false,
             show: true,
             label: "Dominance",
             fontFamily: "Inter, sans-serif",
