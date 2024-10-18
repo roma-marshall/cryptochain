@@ -6,13 +6,13 @@
         <p class="text-base font-normal text-gray-500 dark:text-gray-400">Bitcoin Dominance</p>
       </div>
       <div class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-        {{ globalData?.data.market_cap_percentage.btc.toFixed(2) }}
+        ${{ formatPrice(totalMC) }}
         <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
         </svg>
       </div>
     </div>
-    <Apexchart type="area" height="100%" :options="chartOptions" :series="chartOptions.series" />
+    <Apexchart type="donut" height="100%" :options="chartOptions" :series="chartOptions.series" />
   </div>
 </template>
 
@@ -23,81 +23,102 @@ import { usePiniaStore } from '../store/pinia.js'
 
 const Apexchart = VueApexCharts
 const store = usePiniaStore()
-const globalData = computed(() => store.globalData)
 
-// const hourlyTimestamps = computed(() => store.hourlyTimestamps)
-// const btcD = computed(() => store.btcD)
+const btc = computed(() => store.globalData?.data.market_cap_percentage.btc.toFixed(2))
+const eth = computed(() => store.globalData?.data.market_cap_percentage.eth.toFixed(2))
+const bnb = computed(() => store.globalData?.data.market_cap_percentage.bnb.toFixed(2))
+const sol = computed(() => store.globalData?.data.market_cap_percentage.sol.toFixed(2))
+const usdt = computed(() => store.globalData?.data.market_cap_percentage.usdt.toFixed(2))
+const totalMC = computed(() => store.globalData?.data.total_market_cap.usd)
 
 const chartOptions = ref({
+  series: [Number(btc.value), Number(eth.value), Number(bnb.value), Number(sol.value), Number(usdt.value)],
+  colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694", "#8A4FFF"],
   chart: {
-    height: "100%",
-    maxWidth: "100%",
-    type: "area",
-    fontFamily: "Inter, sans-serif",
-    dropShadow: {
-      enabled: false,
-    },
-    toolbar: {
-      show: false,
+    height: 320,
+    width: "100%",
+    type: "donut",
+  },
+  stroke: {
+    colors: ["transparent"],
+    lineCap: "",
+  },
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+          name: {
+            show: true,
+            fontFamily: "Inter, sans-serif",
+            offsetY: 20,
+          },
+          total: {
+            showAlways: true,
+            show: true,
+            label: "Unique visitors",
+            fontFamily: "Inter, sans-serif",
+            formatter: function (w) {
+              const sum = w.globals.seriesTotals.reduce((a, b) => {
+                return a + b;
+              }, 0);
+              return 'test'
+            },
+          },
+          value: {
+            show: true,
+            fontFamily: "Inter, sans-serif",
+            offsetY: -20,
+            formatter: function (value) {
+              return value + "%";
+            },
+          },
+        },
+        size: "80%",
+      },
     },
   },
-  tooltip: {
-    enabled: true,
-    x: {
-      show: false,
+  grid: {
+    padding: {
+      top: -2,
     },
   },
-  fill: {
-    type: "gradient",
-    gradient: {
-      opacityFrom: 0.55,
-      opacityTo: 0,
-      shade: "#1C64F2",
-      gradientToColors: ["#1C64F2"],
-    },
-  },
+  labels: ["BTC", "ETH", "BNB", "SOL", "USDT"],
   dataLabels: {
     enabled: false,
   },
-  stroke: {
-    width: 6,
+  legend: {
+    position: "bottom",
+    fontFamily: "Inter, sans-serif",
   },
-  grid: {
-    show: false,
-    strokeDashArray: 4,
-    padding: {
-      left: 2,
-      right: 2,
-      top: 0
-    },
-  },
-  series: [
-    {
-      name: "BTC.D",
-      data: [1,2,3,5,6],
-      color: "#1A56DB",
-    },
-  ],
-  xaxis: {
-    categories: [1,2,3,4,5,6],
+  yaxis: {
     labels: {
+      formatter: function (value) {
+        return value + "%";
+      },
+    },
+  },
+  xaxis: {
+    labels: {
+      formatter: function (value) {
+        return value + "%";
+      },
+    },
+    axisTicks: {
       show: false,
     },
     axisBorder: {
       show: false,
     },
-    axisTicks: {
-      show: false,
-    },
   },
-  yaxis: {
-    show: false,
-  },
-})
+});
+
+const formatPrice = (value, toFixed) => {
+  let val = (value/1).toFixed(toFixed).replace(',', '.')
+  return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
 
 onMounted(() => {
   store.fetchGlobalData()
-  // store.fetchBTCD()
-  // store.generateHourlyTimestamps()
 })
 </script>
