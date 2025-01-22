@@ -1,6 +1,6 @@
 <template>
   <main class="flex flex-col p-4 md:ml-64 h-auto pt-20">
-    <div class="order-1 lg:order-0 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-4">
+    <div class="order-1 lg:order-0 grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
       <div
           class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 min-h-32 md:min-h-64"
       >
@@ -11,9 +11,6 @@
       >
         <ExchangeList />
       </div>
-      <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 min-h-32 md:min-h-64"
-      ></div>
     </div>
     <div
         class="order-0 lg:order-1 border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 min-h-96 mb-4"
