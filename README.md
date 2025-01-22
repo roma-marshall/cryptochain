@@ -1,6 +1,6 @@
 # Crypto Chain API
 
-The Open Source cryptochain project built using Vue3, API and TailwindCSS.
+The Open Source cryptochain project built using Vue3, CoinGecko API, Pinia and TailwindCSS.
 
 ## Recommended Installation
 
